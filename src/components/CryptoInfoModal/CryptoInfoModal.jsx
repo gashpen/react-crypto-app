@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Divider, Flex, Tag, Typography } from "antd";
 
 const CryptoInfoModal = (props) => {
