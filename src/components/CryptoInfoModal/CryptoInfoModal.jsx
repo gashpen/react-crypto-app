@@ -1,17 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Divider, Flex, Tag, Typography } from "antd";
+import { Divider, Tag, Typography } from "antd";
+import CoinInfo from "../CoinInfo/CoinInfo";
 
 const CryptoInfoModal = (props) => {
-    console
     return (
         <>
-            <Flex align="center">
-                <img src={props.coin.icon} alt={props.coin.name} style={{ width: 40, marginRight: 15 }} />
-                <Typography.Title level={2} style={{ margin: 0 }}>
-                    ({props.coin.symbol})
-                    {props.coin.name}
-                </Typography.Title>
-            </Flex>
+            <CoinInfo coin={props.coin} withSimbol/>
             <Divider />
             <Typography.Paragraph>
                 <Typography.Text>1 hour: </Typography.Text>

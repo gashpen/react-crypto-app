@@ -12,12 +12,11 @@ const headerStyle = {
     alignItems: 'center',
 };
 
-
 const AppHeader = () => {
     const [select, setSelect] = useState(false);
     const [modal, setModal] = useState();
     const [coin, setCoin] = useState();
-    const [drawer, setDrawer] = useState(true);
+    const [drawer, setDrawer] = useState(false);
 
     const assets = useSelector(state => state.crypto.crypto);
     const handleSelect = (value) => {
@@ -58,8 +57,8 @@ const AppHeader = () => {
             <Modal open={modal} onCancel={() => setModal(false)} footer={null}>
                 <CryptoInfoModal coin={coin} />
             </Modal>
-            <Drawer title="Add Crypto" onClose={()=>setDrawer(false)}  open={drawer}>
-                    <AddCryptoForm/>
+            <Drawer destroyOnClose={true} title="Add Crypto" width={600} onClose={()=>setDrawer(false)}  open={drawer}>
+                    <AddCryptoForm onClose={()=>setDrawer(false)}/>
             </Drawer>
             <Button onClick={()=>setDrawer(true)} type="primary">Add Asset</Button>
         </Layout.Header>);

@@ -13,7 +13,6 @@ const siderStyle = {
     color: '#fff',
     backgroundColor: '#001529',
     padding: '1rem',
-
 };
 
 const AppSider = () => {
@@ -37,7 +36,7 @@ const AppSider = () => {
         <Layout.Sider width="25%" style={siderStyle}>
             {assets.map(elem => {
                 return (
-                    <Card key={elem.id} title="Default size card" style={{ width: 300, marginBottom: '1rem' }}>
+                    <Card key={elem.id} style={{ width: 300, marginBottom: '1rem' }}>
                         <Statistic
                             title={elem.id}
                             value={elem.totalAmount}
