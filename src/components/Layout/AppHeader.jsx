@@ -42,7 +42,7 @@ const AppHeader = () => {
                 onSelect={handleSelect}
                 onClick={() => setSelect((prev) => !prev)}
                 value='press / to open'
-                options={assets.map(elem => ({
+                options={assets?.map(elem => ({
                     label: elem.name,
                     value: elem.id,
                     icon: elem.icon

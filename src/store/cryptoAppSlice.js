@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { fakeFetchCrypto, fetchAssets } from "../api"
+import { fetchAssets } from "../api"
 import { differencePercent } from "../components/utils/utils";
 
 export const fetchAssetsUser = createAsyncThunk(
@@ -9,23 +9,37 @@ export const fetchAssetsUser = createAsyncThunk(
         return assets;
     }
 );
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        'X-API-KEY': 'G7zDLk6R5rO082V53M1czzwyitHswYXY4X4hn05qsEo='
+    }
+};
+
 export const fakeFetchCryptoServer = createAsyncThunk(
     'crypto/fakeFetchCryptoServer',
     async function () {
-        const { result } = await fakeFetchCrypto();
-        return result;
+        return new Promise((resolve) => {
+            fetch('https://openapiv1.coinstats.app/coins', options)
+            .then(response => response.json())
+            .then(response => {
+                resolve(response.result)
+            })
+            .catch(err => console.error(err));
+        })
     }
 );
 
 const mapAsset = (elem, crypto) => {
     return elem.map((elem) => {
-        const coin = crypto.find(c => c.id === elem.id);
+        const coin = crypto?.find(c => c.id === elem.id);
         return {
             ...elem,
             grow: elem.price < coin.price,
             growPercent: differencePercent(elem.price, coin.price),
             totalAmount: elem.amount * coin.price,
-            totalProfit: elem.amount * coin.price - elem.amount * elem.price,
+            totalProfit: +(elem.amount * coin.price - elem.amount * elem.price).toFixed(2),
         }
     })
 }
@@ -42,7 +56,7 @@ const cryptoAppSlide = createSlice({
     reducers: {
         addCrypto(state, action) {
             state.addFormCrypto.push(action.payload);
-            state.userCrypto = state.userCrypto.concat(mapAsset(current(state.addFormCrypto), state.crypto)); 
+            state.userCrypto = state.userCrypto.concat(mapAsset(current(state.addFormCrypto), state.crypto));
         }
     },
     extraReducers: builder => {

@@ -22,7 +22,6 @@ const AppSider = () => {
     useEffect(()=>{
         dispatch(fetchAssetsUser())
         dispatch(fakeFetchCryptoServer())
-
     },[dispatch])
 
     const loading = useSelector(state => state.crypto.loading);
